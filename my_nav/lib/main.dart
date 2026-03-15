@@ -5,12 +5,28 @@ void main() {
   runApp(MyApp());
 }
 
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(debugShowCheckedModeBanner: false, home: HomeScreen());
+//   }
+// }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: HomeScreen());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: "/",
+      routes: {
+        "/": (context) => const HomeScreen(),
+        "/second": (context) => const SecondScreen(),
+      },
+    );
   }
 }
 
@@ -35,7 +51,12 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> const SecondScreen()));
+            // Navigator.push(              // yo chai normal push pop garni
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const SecondScreen()),
+            // );
+
+            Navigator.pushNamed(context, "/second");
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.cyan.shade500,
