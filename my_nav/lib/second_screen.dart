@@ -1,21 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_nav/second_screen.dart';
+import 'package:my_nav/main.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: HomeScreen());
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class SecondScreen extends StatelessWidget {
+  const SecondScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +11,7 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.cyan.shade300,
         title: const Text(
-          "Home Screen",
+          "Second Screen",
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -35,7 +22,10 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> const SecondScreen()));
+            Navigator.pop(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+            );
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.cyan.shade500,
@@ -45,7 +35,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           child: const Text(
-            "GoTo Second Screen",
+            "GoTo Home Screen",
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ),
