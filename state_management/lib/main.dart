@@ -60,7 +60,7 @@ class _CounterScreenState extends State<CounterScreen> {
             ),
             SizedBox(height: 10),
             Text(
-              "${_counter}",
+              "$_counter",
               style: TextStyle(
                 fontSize: 80,
                 fontWeight: FontWeight.bold,
