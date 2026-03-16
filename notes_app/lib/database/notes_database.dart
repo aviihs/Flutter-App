@@ -43,12 +43,51 @@ class NotesDatabase {
     int color,
   ) async {
     final db = await instance.database;
-    Map<String, dynamic> values = {
+    // Map<String, dynamic> values = {
+    //   "title": title,
+    //   "description": description,
+    //   "date": date,
+    //   "color": color,
+    // };
+    return await db.insert("note", {
       "title": title,
       "description": description,
       "date": date,
       "color": color,
-    };
-    return await db.insert("note", values);
+    });
+  }
+
+  Future<List<Map<String, dynamic>>> getNotes() async {
+    final db = await instance.database;
+
+    return await db.query('note', orderBy: 'date DESC');
+  }
+
+  Future<int> updateNotes(
+    int id,
+    String title,
+    String description,
+    String date,
+    int color,
+  ) async {
+    final db = await instance.database;
+
+    return await db.update(
+      'note',
+      {
+        "title": title,
+        "description": description,
+        "date": date,
+        "color": color,
+      },
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<int> deleteNotes(int id) async {
+    final db = await instance.database;
+
+    return await db.delete('note', where: 'id = ?', whereArgs: [id]);
   }
 }
