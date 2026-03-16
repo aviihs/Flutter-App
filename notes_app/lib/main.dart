@@ -10,7 +10,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
-  }
+    return MaterialApp(
+      title: "Notes App",
+      theme: ThemeData(
+        primarySwatch: Colors.blueGrey,
+      ),
+      // home: const ,
+    );
+  } 
 }
 
