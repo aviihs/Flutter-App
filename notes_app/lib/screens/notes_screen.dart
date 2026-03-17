@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/database/notes_database.dart';
+import 'package:notes_app/screens/note_card.dart';
+import 'package:notes_app/screens/note_dialog.dart';
 
 class NotesScreen extends StatefulWidget {
   const NotesScreen({super.key});
@@ -13,7 +15,7 @@ class _NameState extends State<NotesScreen> {
   @override
   void initState() {
     super.initState();
-    fetchNotes;
+    fetchNotes();
   }
 
   Future<void> fetchNotes() async {
@@ -22,6 +24,68 @@ class _NameState extends State<NotesScreen> {
     setState(() {
       notes = fetchNotes;
     });
+  }
+
+  final List<Color> noteColor = [
+    const Color(0xFFF3E5F5), // Light Purple
+    const Color(0xFFFFF3E0), // Light Orange
+    const Color(0xFFE1F5FE), // Light Blue
+    const Color(0xFFFCE4EC), // Light Pink
+    const Color(0xFFB9CFF0), // Baby Blue
+    const Color(0xFFFFABAB), // Light Red
+    const Color(0xFFB2F9FC), // Light Cyan
+    const Color(0xFFFFD59A), // Light Peach
+    const Color(0xFFFFE4B5), // Moccasin
+    const Color(0xFF98FB98), // Pale Green
+    const Color(0xFFFFD700), // Gold
+    const Color(0xFFAFEEEE), // Pale Turquoise
+    const Color(0xFFFFB6C1), // Light Pink
+    const Color(0xFFFAFAD2), // Light Goldenrod Yellow
+    const Color(0xFFD3D3D3), // Light Grey
+  ];
+
+  void showNoteDialog({
+    int? id,
+    String? title,
+    String? content,
+    int colorIndex = 0,
+  }) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) {
+        return NoteDialog(
+          colorIndex: colorIndex,
+          noteColors: noteColor,
+          noteId: id,
+          title: title,
+          content: content,
+          noNoteSaved:
+              (
+                newTitle,
+                newDescription,
+                selectedColorIndex,
+                currentDate,
+              ) async {
+                if (id == null) {
+                  await NotesDatabase.instance.addNotes(
+                    newTitle,
+                    newDescription,
+                    currentDate,
+                    selectedColorIndex,
+                  );
+                } else {
+                  await NotesDatabase.instance.updateNotes(
+                    id,
+                    newTitle,
+                    newDescription,
+                    currentDate,
+                    selectedColorIndex,
+                  );
+                }
+              },
+        );
+      },
+    );
   }
 
   @override
@@ -40,7 +104,16 @@ class _NameState extends State<NotesScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          // async {
+          //   await NotesDatabase.instance.addNotes(
+          //     'Sample Title',
+          //     'Sample Desc',
+          //     '2025-01-01',
+          //     0,
+          //   );
+          showNoteDialog();
+        },
         backgroundColor: Colors.white,
         child: const Icon(Icons.add, color: Colors.black),
       ),
@@ -79,7 +152,22 @@ class _NameState extends State<NotesScreen> {
                 itemBuilder: (context, index) {
                   final note = notes[index];
 
-                  return Text(note['title']);
+                  return NoteCard(
+                    note: note,
+                    onDelete: () async {
+                      await NotesDatabase.instance.deleteNotes(note['id']);
+                      fetchNotes();
+                    },
+                    onTap: () {
+                      showNoteDialog(
+                        id: note['id'],
+                        title: note['title'],
+                        content: note['content'],
+                        colorIndex: note['color'],
+                      );
+                    },
+                    noteColors: noteColor,
+                  );
                 },
               ),
             ),

@@ -17,7 +17,7 @@ class NotesApp extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
       ),
       home: const NotesScreen(),
-      debugShowCheckedModeBanner: false,
+      // debugShowCheckedModeBanner: false,
     );
   } 
 }
