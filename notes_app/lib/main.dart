@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/screens/notes_screen.dart';
 
 void main(){
 
-  runApp(MyApp());
+  runApp(NotesApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class NotesApp extends StatelessWidget {
+  const NotesApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      // home: const ,
+      home: const NotesScreen(),
+      debugShowCheckedModeBanner: false,
     );
   } 
 }
