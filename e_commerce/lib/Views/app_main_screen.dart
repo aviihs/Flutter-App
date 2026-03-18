@@ -1,3 +1,4 @@
+import 'package:e_commerce/Views/app_home_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppMainScreen extends StatefulWidget {
@@ -10,7 +11,7 @@ class AppMainScreen extends StatefulWidget {
 class _AppMainScreenState extends State<AppMainScreen> {
   int selectedIndex = 0;
   final List page = [
-    const Scaffold(),
+    const AppHomeScreen(),
     const Scaffold(),
     const Scaffold(),
     const Scaffold(),
@@ -28,6 +29,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
           setState(() {
             selectedIndex = value;
           });
+          
         },
         elevation: 0,
         backgroundColor: Colors.white,
