@@ -18,7 +18,7 @@ class _AppSearchSecreenState extends State<AppSearchSecreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 60),
-            Header(),
+            Header(showLogo: true),
             SizedBox(height: 60),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),

@@ -51,16 +51,16 @@ class CuratedItems extends StatelessWidget {
                 color: Colors.black45,
               ),
             ),
-            // Rating wala part lai euta group (Row) ma rakheko
+
             Row(
               children: [
                 Padding(
                   padding: EdgeInsets.only(
                     left: 70,
-                  ), // Icon ko left ma matra 4 padding
+                  ),
                   child: Icon(Icons.star, color: Colors.yellow, size: 18),
                 ),
-                SizedBox(width: 4), // Icon ra text ko bicha ma ali gap
+                SizedBox(width: 4), 
                 Text(eCommerceItems.rating.toString()),
                 Text(
                   " / ${eCommerceItems.review}",

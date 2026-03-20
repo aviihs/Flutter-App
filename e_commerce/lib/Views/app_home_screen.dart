@@ -2,6 +2,7 @@ import 'package:e_commerce/Models/category_models.dart';
 import 'package:e_commerce/Models/model.dart';
 // import 'package:e_commerce/Models/model.dart';
 import 'package:e_commerce/Utils/colors.dart';
+import 'package:e_commerce/Views/items_details_screen.dart';
 import 'package:e_commerce/Widgets/banner.dart';
 import 'package:e_commerce/Widgets/curater_items.dart';
 import 'package:e_commerce/Widgets/header.dart';
@@ -24,7 +25,7 @@ class _AppHomeScreenState extends State<AppHomeScreen> {
         child: Column(
           children: [
             const SizedBox(height: 60),
-            Header(),
+            Header(showLogo: true),
             const SizedBox(height: 20),
             MyBanner(),
 
@@ -119,7 +120,9 @@ class _AppHomeScreenState extends State<AppHomeScreen> {
                         ? const EdgeInsets.symmetric(horizontal: 20)
                         : const EdgeInsets.only(right: 20),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_)=>ItemsDetailsScreen(eCommerceApp: eCommerceItems),),);
+                      },
                       child: CuratedItems(
                         eCommerceItems: eCommerceItems,
                         size: size,

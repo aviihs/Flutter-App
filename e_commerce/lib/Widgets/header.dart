@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
-  const Header({super.key});
+  const Header({super.key, required this.showLogo});
+  final bool showLogo;
 
   @override
   Widget build(BuildContext context) {
@@ -10,8 +11,13 @@ class Header extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Image(image: "assets/images/logo.png");
-                  Image.asset("assets/images/logo.png", height: 50),
+          if (showLogo)
+            Image.asset("assets/images/logo.png", height: 50)
+          else
+            SizedBox(), 
+
+
+                  // Image.asset("assets/images/logo.png", height: 50),
                   Stack(
                     clipBehavior: Clip.none,
                     children: [
