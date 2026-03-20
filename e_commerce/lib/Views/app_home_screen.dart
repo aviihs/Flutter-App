@@ -1,4 +1,10 @@
+import 'package:e_commerce/Models/category_models.dart';
+import 'package:e_commerce/Models/model.dart';
+// import 'package:e_commerce/Models/model.dart';
+import 'package:e_commerce/Utils/colors.dart';
 import 'package:e_commerce/Widgets/banner.dart';
+import 'package:e_commerce/Widgets/curater_items.dart';
+import 'package:e_commerce/Widgets/header.dart';
 import 'package:flutter/material.dart';
 
 class AppHomeScreen extends StatefulWidget {
@@ -11,50 +17,118 @@ class AppHomeScreen extends StatefulWidget {
 class _AppHomeScreenState extends State<AppHomeScreen> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 60),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+            Header(),
+            const SizedBox(height: 20),
+            MyBanner(),
+
+            // const SizedBox(height: 20),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Image(image: "assets/images/logo.png");
-                  Image.asset("assets/images/logo.png", height: 50),
-                  Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Icon(Icons.shopping_bag, size: 30),
-                      Positioned(
-                        top: -5,
-                        right: -5,
-                        child: Container(
-                          padding: EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: Text(
-                              "3",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                  Text(
+                    "Shop By Category",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    "See All",
+                    style: TextStyle(
+                      color: Colors.black45,
+                      letterSpacing: 0,
+                      fontSize: 16,
+                    ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            MyBanner()
+
+            // For Category
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List.generate(
+                  category.length,
+                  (index) => InkWell(
+                    onTap: () {
+                      print("${category[index].name} clicked");
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: CircleAvatar(
+                            radius: 30,
+                            backgroundColor: fbackgroundColor1,
+                            backgroundImage: AssetImage(category[index].image),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(category[index].name),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Curated For You",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    "See All",
+                    style: TextStyle(
+                      color: Colors.black45,
+                      letterSpacing: 0,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List.generate(fashionEcommerceApp.length, (index) {
+                  final eCommerceItems = fashionEcommerceApp[index];
+                  return Padding(
+                    padding: index == 0
+                        ? const EdgeInsets.symmetric(horizontal: 20)
+                        : const EdgeInsets.only(right: 20),
+                    child: InkWell(
+                      onTap: () {},
+                      child: CuratedItems(
+                        eCommerceItems: eCommerceItems,
+                        size: size,
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ),
           ],
         ),
       ),
